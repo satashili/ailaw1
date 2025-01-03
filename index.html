@@ -17,6 +17,48 @@
         </nav>
     </header>
     
+    <!-- 添加登录模态框 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>用户登录</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="email" placeholder="邮箱" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="密码" required>
+                </div>
+                <button type="submit" class="submit-btn">登录</button>
+            </form>
+            <p class="switch-form">还没有账号？<a href="#" id="showRegister">立即注册</a></p>
+        </div>
+    </div>
+
+    <!-- 添加注册模态框 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>用户注册</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <input type="text" placeholder="用户名" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="邮箱" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="密码" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="确认密码" required>
+                </div>
+                <button type="submit" class="submit-btn">注册</button>
+            </form>
+            <p class="switch-form">已有账号？<a href="#" id="showLogin">立即登录</a></p>
+        </div>
+    </div>
+
     <main>
         <section class="hero">
             <h1>智能合同审查助手</h1>
@@ -66,5 +108,6 @@
             </div>
         </section>
     </main>
+    <script src="script.js"></script>
 </body>
 </html> 
