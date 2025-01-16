@@ -54,6 +54,24 @@ nav {
 .hero h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    background: linear-gradient(45deg, #6c5ce7, #a29bfe, #00cec9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient 3s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .step-section {
@@ -279,4 +297,13 @@ nav {
 
 .form-group.remember-me input {
     width: auto;
+}
+
+.logo {
+    background: linear-gradient(45deg, #6c5ce7, #a29bfe, #00cec9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    font-size: 1.2rem;
 } 
