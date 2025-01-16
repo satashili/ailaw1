@@ -237,4 +237,46 @@ nav {
 .switch-form a {
     color: var(--primary-color);
     text-decoration: none;
+}
+
+/* 消息提示样式 */
+.message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    color: white;
+    animation: slideIn 0.3s ease-out;
+    z-index: 2000;
+}
+
+.message.success {
+    background-color: #00b894;
+}
+
+.message.error {
+    background-color: #d63031;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 更新登录表单样式 */
+.form-group.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group.remember-me input {
+    width: auto;
 } 
