@@ -1,95 +1,95 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能合同审查助手</title>
+    <title>Smart Contract Review Assistant</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">智能合同审查助手</div>
+            <div class="logo">Smart Contract Review Assistant</div>
             <div class="auth-buttons">
-                <button class="login">登录</button>
-                <button class="register">注册</button>
+                <button class="login">Login</button>
+                <button class="register">Register</button>
             </div>
         </nav>
     </header>
     
-    <!-- 添加登录模态框 -->
+    <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>用户登录</h2>
+            <h2>Login</h2>
             <form id="loginForm">
                 <div class="form-group">
-                    <input type="email" placeholder="邮箱" required>
+                    <input type="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" placeholder="密码" required>
+                    <input type="password" placeholder="Password" required>
                 </div>
                 <div class="form-group remember-me">
                     <input type="checkbox" id="rememberMe">
-                    <label for="rememberMe">记住我</label>
+                    <label for="rememberMe">Remember me</label>
                 </div>
-                <button type="submit" class="submit-btn">登录</button>
+                <button type="submit" class="submit-btn">Login</button>
             </form>
-            <p class="switch-form">还没有账号？<a href="#" id="showRegister">立即注册</a></p>
+            <p class="switch-form">Don't have an account? <a href="#" id="showRegister">Register now</a></p>
         </div>
     </div>
 
-    <!-- 添加注册模态框 -->
+    <!-- Register Modal -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>用户注册</h2>
+            <h2>Register</h2>
             <form id="registerForm">
                 <div class="form-group">
-                    <input type="text" placeholder="用户名" required>
+                    <input type="text" placeholder="Username" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" placeholder="邮箱" required>
+                    <input type="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" placeholder="密码" required>
+                    <input type="password" placeholder="Password" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" placeholder="确认密码" required>
+                    <input type="password" placeholder="Confirm Password" required>
                 </div>
-                <button type="submit" class="submit-btn">注册</button>
+                <button type="submit" class="submit-btn">Register</button>
             </form>
-            <p class="switch-form">已有账号？<a href="#" id="showLogin">立即登录</a></p>
+            <p class="switch-form">Already have an account? <a href="#" id="showLogin">Login now</a></p>
         </div>
     </div>
 
     <main>
         <section class="hero">
-            <h1>智能合同审查助手</h1>
-            <p>上传合同，选择立场，获取专业的法律建议</p>
+            <h1>Smart Contract Review Assistant</h1>
+            <p>Upload contract, choose perspective, get professional legal advice</p>
         </section>
 
         <section class="step-section">
-            <div class="step-indicator">第一步</div>
+            <div class="step-indicator">Step 1</div>
             <div class="selection-area">
-                <h2>选择您的立场</h2>
-                <p>我们将根据您的立场提供针对性的法律建议</p>
+                <h2>Choose Your Perspective</h2>
+                <p>We'll provide targeted legal advice based on your role</p>
                 
                 <div class="position-cards">
                     <div class="position-card">
-                        <div class="icon">甲</div>
-                        <h3>甲方立场</h3>
-                        <p>维护甲方权益</p>
+                        <div class="icon">A</div>
+                        <h3>Party A</h3>
+                        <p>Protect Party A's interests</p>
                     </div>
                     <div class="position-card">
-                        <div class="icon">乙</div>
-                        <h3>乙方立场</h3>
-                        <p>保护乙方利益</p>
+                        <div class="icon">B</div>
+                        <h3>Party B</h3>
+                        <p>Protect Party B's interests</p>
                     </div>
                     <div class="position-card">
-                        <div class="icon">中</div>
-                        <h3>中立立场</h3>
-                        <p>公正客观分析</p>
+                        <div class="icon">N</div>
+                        <h3>Neutral</h3>
+                        <p>Objective analysis</p>
                     </div>
                 </div>
             </div>
@@ -101,8 +101,8 @@
                     </svg>
                 </div>
                 <div class="reminder-content">
-                    <h3>请先选择您的立场</h3>
-                    <p>为了提供更准确的分析建议，<br>请先在上方选择您的立场</p>
+                    <h3>Please Choose Your Perspective First</h3>
+                    <p>To provide more accurate analysis,<br>please select your perspective above</p>
                 </div>
                 <div class="reminder-arrow">
                     <svg viewBox="0 0 24 24" width="24" height="24">

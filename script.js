@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 border-radius: 8px;
                 text-align: center;
             ">
-                <h3>请先登录</h3>
-                <p>您需要登录后才能使用此功能</p>
+                <h3>Login Required</h3>
+                <p>Please login to use this feature</p>
                 <button class="prompt-login-btn" style="
                     background: var(--primary-color);
                     color: white;
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     border-radius: 4px;
                     margin-top: 1rem;
                     cursor: pointer;
-                ">立即登录</button>
+                ">Login Now</button>
             </div>
         `;
         
@@ -149,8 +149,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (user) {
             authButtons.innerHTML = `
-                <span>欢迎，${user.username}</span>
-                <button class="logout">登出</button>
+                <span>Welcome, ${user.username}</span>
+                <button class="logout">Logout</button>
             `;
             
             document.querySelector('.logout').addEventListener('click', () => {
@@ -160,8 +160,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         } else {
             authButtons.innerHTML = `
-                <button class="login">登录</button>
-                <button class="register">注册</button>
+                <button class="login">Login</button>
+                <button class="register">Register</button>
             `;
             
             // 重新绑定登录注册按钮事件

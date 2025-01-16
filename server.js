@@ -48,7 +48,7 @@ app.post('/api/register', async (req, res) => {
         // 检查用户是否已存在
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ error: '该邮箱已被注册' });
+            return res.status(400).json({ error: 'Email already registered' });
         }
 
         // 加密密码
@@ -88,13 +88,13 @@ app.post('/api/login', async (req, res) => {
         // 查找用户
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ error: '用户不存在' });
+            return res.status(400).json({ error: 'User does not exist' });
         }
 
         // 验证密码
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            return res.status(400).json({ error: '密码错误' });
+            return res.status(400).json({ error: 'Incorrect password' });
         }
 
         // 生成 token
@@ -140,17 +140,83 @@ app.post('/api/analyze', authenticateToken, async (req, res) => {
         // 根据不同立场设置不同的提示词
         let prompt = '';
         switch(position) {
-            case '甲方立场':
-                prompt = `作为合同甲方的法律顾问，请分析以下合同内容，重点关注保护甲方权益的角度，指出可能存在的风险，并给出具体的修改建议：\n\n${content}`;
+            case 'Party A':
+                prompt = `As a professional legal advisor, you are reviewing a contract for Party A (the initiator/principal). Please analyze the following contract content from the perspective of protecting Party A's interests:
+
+${content}
+
+Please strictly follow this format in your response:
+
+1. Key Risk Points:
+   - List clauses that are most unfavorable to Party A
+   - Identify potential liability risks and insufficient protection of rights
+   - Point out areas where Party A's interests might be compromised
+
+2. Detailed Analysis:
+   - Explain the potential adverse impacts of each risk point on Party A
+   - Analyze unequal stipulations of rights and obligations
+   - Evaluate the reasonableness of liability provisions
+
+3. Modification Suggestions:
+   - Provide specific revision suggestions for each risk point
+   - Recommend additional protective clauses
+   - Suggest how to strengthen Party A's position in the contract
+
+Please ensure comprehensive analysis with a focus on protecting Party A's interests.`;
                 break;
-            case '乙方立场':
-                prompt = `作为合同乙方的法律顾问，请分析以下合同内容，重点关注保护乙方权益的角度，指出可能存在的风险，并给出具体的修改建议：\n\n${content}`;
+
+            case 'Party B':
+                prompt = `As a professional legal advisor, you are reviewing a contract for Party B (the recipient/contractor). Please analyze the following contract content from the perspective of protecting Party B's interests:
+
+${content}
+
+Please strictly follow this format in your response:
+
+1. Key Risk Points:
+   - List clauses that are most unfavorable to Party B
+   - Identify excessive obligations or insufficient protection
+   - Detect potential contractual traps
+
+2. Detailed Analysis:
+   - Explain the potential adverse impacts of each risk point on Party B
+   - Analyze unequal stipulations of rights and obligations
+   - Evaluate the fairness of liability provisions
+
+3. Modification Suggestions:
+   - Provide specific revision suggestions for each risk point
+   - Recommend liability limitation or exemption clauses
+   - Suggest how to balance rights and obligations
+
+Please ensure comprehensive analysis with a focus on protecting Party B's interests.`;
                 break;
-            case '中立立场':
-                prompt = `请以中立的立场分析以下合同内容，确保合同条款公平合理，同时为双方提供平衡的建议：\n\n${content}`;
+
+            case 'Neutral':
+                prompt = `As an impartial legal advisor, please analyze the following contract content from a neutral perspective to ensure fair treatment of both parties:
+
+${content}
+
+Please strictly follow this format in your response:
+
+1. Key Risk Points:
+   - Identify clauses that may be unfair to either party
+   - Point out ambiguous terms that could lead to disputes
+   - Highlight potential legal compliance issues
+
+2. Detailed Analysis:
+   - Explain how each clause affects both parties' interests
+   - Evaluate the overall fairness and reasonableness
+   - Assess the enforceability and legal validity
+
+3. Modification Suggestions:
+   - Provide balanced revision suggestions for each issue
+   - Recommend additional clauses for clarity
+   - Suggest how to make the contract more fair and executable
+
+Please ensure objective analysis to help both parties achieve a mutually beneficial agreement.`;
                 break;
+
             default:
-                throw new Error('无效的立场选择');
+                throw new Error('Invalid perspective selection');
         }
 
         // 调用 DeepSeek API
@@ -158,7 +224,7 @@ app.post('/api/analyze', authenticateToken, async (req, res) => {
             messages: [
                 {
                     role: "system",
-                    content: "你是一位专业的法律顾问，擅长合同分析和风险评估。请用中文回复，并按照以下格式组织回答：\n1. 主要风险点\n2. 具体分析\n3. 修改建议"
+                    content: "你是一位专业的法律顾问，擅长合同分析和风险评估。请用英文回复，并按照以下格式组织回答：\n1. 主要风险点\n2. 具体分析\n3. 修改建议"
                 },
                 {
                     role: "user",
