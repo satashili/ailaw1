@@ -306,4 +306,241 @@ nav {
     color: transparent;
     font-weight: bold;
     font-size: 1.2rem;
+}
+
+/* Pricing Section Styles */
+.pricing-section {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.pricing-subtitle {
+    color: #636e72;
+    margin-bottom: 3rem;
+}
+
+.pricing-cards {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.pricing-card {
+    flex: 1;
+    max-width: 350px;
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.pricing-card.featured {
+    border: 2px solid var(--primary-color);
+    transform: scale(1.05);
+}
+
+.pricing-card.featured:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.best-value {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.pricing-header {
+    margin-bottom: 2rem;
+}
+
+.price {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 1rem 0;
+}
+
+.price span {
+    font-size: 1rem;
+    color: #636e72;
+}
+
+.savings {
+    display: inline-block;
+    background: rgba(108, 92, 231, 0.1);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.pricing-features {
+    list-style: none;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.pricing-features li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #f1f1f1;
+    position: relative;
+    padding-left: 2rem;
+}
+
+.pricing-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.subscribe-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.subscribe-btn:hover {
+    background: #5d4fd1;
+}
+
+.testimonials {
+    display: flex;
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.testimonial {
+    flex: 1;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.testimonial::before {
+    content: "\201C";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 5rem;
+    color: rgba(108, 92, 231, 0.1);
+    font-family: Georgia, serif;
+}
+
+.quote {
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.author {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .pricing-cards, .testimonials {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .pricing-card {
+        width: 100%;
+    }
+    
+    .pricing-card.featured {
+        transform: scale(1);
+        margin: 2rem 0;
+    }
+    
+    .pricing-card.featured:hover {
+        transform: translateY(-10px);
+    }
+}
+
+/* 用户信息和徽章样式 */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.premium-badge, .trial-badge, .trial-expired {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.premium-badge {
+    background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+    color: white;
+}
+
+.trial-badge {
+    background: #00b894;
+    color: white;
+}
+
+.trial-expired {
+    background: #d63031;
+    color: white;
+}
+
+/* 试用信息横幅 */
+.trial-info {
+    margin-bottom: 1rem;
+}
+
+.trial-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 184, 148, 0.1);
+    border-left: 4px solid #00b894;
+    border-radius: 4px;
+}
+
+.upgrade-btn {
+    background: #00b894;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.upgrade-btn:hover {
+    background: #00a382;
 } 

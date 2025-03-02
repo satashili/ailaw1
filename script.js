@@ -148,15 +148,54 @@ document.addEventListener('DOMContentLoaded', function() {
         const user = JSON.parse(localStorage.getItem('user'));
         
         if (user) {
-            authButtons.innerHTML = `
-                <span>Welcome, ${user.username}</span>
-                <button class="logout">Logout</button>
-            `;
-            
-            document.querySelector('.logout').addEventListener('click', () => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('user');
-                updateAuthUI();
+            // 获取最新的用户信息，包括免费试用次数
+            fetch('http://localhost:3000/api/user/info', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 更新本地存储的用户信息
+                localStorage.setItem('user', JSON.stringify(data));
+                
+                // 显示用户信息和免费试用次数
+                let subscriptionStatus = '';
+                if (data.hasActiveSubscription) {
+                    subscriptionStatus = '<span class="premium-badge">Premium</span>';
+                } else if (data.freeTrialsRemaining > 0) {
+                    subscriptionStatus = `<span class="trial-badge">${data.freeTrialsRemaining} free trials left</span>`;
+                } else {
+                    subscriptionStatus = '<span class="trial-expired">Free trial expired</span>';
+                }
+                
+                authButtons.innerHTML = `
+                    <div class="user-info">
+                        <span>Welcome, ${data.username}</span>
+                        ${subscriptionStatus}
+                    </div>
+                    <button class="logout">Logout</button>
+                `;
+                
+                document.querySelector('.logout').addEventListener('click', () => {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    updateAuthUI();
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching user info:', error);
+                // 如果获取失败，使用本地存储的信息
+                authButtons.innerHTML = `
+                    <span>Welcome, ${user.username}</span>
+                    <button class="logout">Logout</button>
+                `;
+                
+                document.querySelector('.logout').addEventListener('click', () => {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    updateAuthUI();
+                });
             });
         } else {
             authButtons.innerHTML = `
@@ -165,11 +204,11 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             
             // 重新绑定登录注册按钮事件
-            document.querySelector('.login').addEventListener('click', () => {
+            document.querySelector('.login')?.addEventListener('click', () => {
                 loginModal.style.display = 'block';
             });
             
-            document.querySelector('.register').addEventListener('click', () => {
+            document.querySelector('.register')?.addEventListener('click', () => {
                 registerModal.style.display = 'block';
             });
         }
@@ -214,4 +253,90 @@ document.addEventListener('DOMContentLoaded', function() {
             registerModal.style.display = 'none';
         }
     });
+
+    // 订阅按钮处理
+    const subscribeButtons = document.querySelectorAll('.subscribe-btn');
+    
+    subscribeButtons.forEach(button => {
+        button.addEventListener('click', async function() {
+            const plan = this.getAttribute('data-plan');
+            
+            if (!isLoggedIn()) {
+                showLoginPrompt();
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ plan })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error);
+                }
+                
+                showMessage('Subscription successful! Enjoy premium features.', 'success');
+                
+                // 更新用户订阅状态
+                const user = JSON.parse(localStorage.getItem('user'));
+                user.hasActiveSubscription = true;
+                localStorage.setItem('user', JSON.stringify(user));
+                
+            } catch (error) {
+                showMessage('Subscription failed: ' + error.message, 'error');
+            }
+        });
+    });
+    
+    // 显示消息提示
+    function showMessage(message, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}`;
+        messageDiv.textContent = message;
+        
+        document.body.appendChild(messageDiv);
+        
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 5000);
+    }
+    
+    // 检查订阅状态
+    async function checkSubscriptionStatus() {
+        if (!isLoggedIn()) return;
+        
+        try {
+            const response = await fetch('http://localhost:3000/api/subscription/status', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error);
+            }
+            
+            // 更新用户订阅状态
+            const user = JSON.parse(localStorage.getItem('user'));
+            user.hasActiveSubscription = data.hasActiveSubscription;
+            localStorage.setItem('user', JSON.stringify(user));
+            
+        } catch (error) {
+            console.error('Failed to check subscription status:', error);
+        }
+    }
+    
+    // 登录后检查订阅状态
+    if (isLoggedIn()) {
+        checkSubscriptionStatus();
+    }
 });

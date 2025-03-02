@@ -6,6 +6,11 @@
     <title>Upload Contract - Smart Contract Review Assistant</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="upload.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.0/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    </script>
 </head>
 <body>
     <header>
@@ -31,7 +36,7 @@
         </div>
 
         <div class="analysis-result" style="display: none;">
-            <h3>Analysis Result</h3>
+            <h3>分析结果</h3>
             <div class="result-content"></div>
         </div>
     </main>
